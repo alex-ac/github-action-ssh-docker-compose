@@ -45,6 +45,6 @@ docker-compose up -d
 EOF
 
 echo ">> [local] Connecting to remote host."
-ssh -o StrictHostChecking=no -o UserKnownHostsFile=/dev/null \
+ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
   "$SSH_USER@$SSH_HOST:$SSH_PORT" \
   "$remote_command"
