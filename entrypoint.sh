@@ -22,7 +22,7 @@ eval `ssh-agent -s`
 
 ssh-add <(echo "$SSH_PRIVATE_KEY")
 
-remote_command="set -ex ; log() { echo '>> [remote]' \$@ ; } ; cleanup() { log 'Removing workspace...'; rm -rf \"\$HOME/workspace\" } ; log 'Creating workspace directory...' ; mkdir \"\$HOME/workspace\" ; trap cleanup EXIT ; log 'Unpacking workspace...' ; tar -C \"\$HOME/workspace\" xjv ; log 'Launching docker-compose...' ; COMPOSE_PROJECT=\"$DOCKER_COMPOSE_PREFIX\" ; COMPOSE_FILENAME=\"$DOCKER_COMPOSE_FILENAME\" ; cd \"\$HOME/workspace\" ; docker-compose up -d"
+remote_command="set -ex ; log() { echo '>> [remote]' \$@ ; } ; cleanup() { log 'Removing workspace...'; rm -rf \"\$HOME/workspace\" ; } ; log 'Creating workspace directory...' ; mkdir \"\$HOME/workspace\" ; trap cleanup EXIT ; log 'Unpacking workspace...' ; tar -C \"\$HOME/workspace\" xjv ; log 'Launching docker-compose...' ; COMPOSE_PROJECT=\"$DOCKER_COMPOSE_PREFIX\" ; COMPOSE_FILENAME=\"$DOCKER_COMPOSE_FILENAME\" ; cd \"\$HOME/workspace\" ; docker-compose up -d"
 
 echo ">> [local] Connecting to remote host."
 ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
