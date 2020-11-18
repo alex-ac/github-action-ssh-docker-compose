@@ -6,7 +6,7 @@ log() {
 }
 
 log "Packing workspace into archive to transfer onto remote machine."
-tar cjvf /tmp/workspace.tar.bz2 --exclude .git --one-file-system .
+tar cjvf /tmp/workspace.tar.bz2 --exclude .git .
 
 log "Launching ssh agent."
 eval `ssh-agent -s`

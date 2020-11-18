@@ -1,32 +1,32 @@
 name: SSH-Compose
 description: SSH into host and deploy repository with Docker-Compose
 inputs:
-  ssh-private-key:
+  ssh_private_key:
     description: Private SSH key used for logging into remote system.
     required: true
-  ssh-host:
+  ssh_host:
     description: Remote host name.
     required: true
-  ssh-port:
+  ssh_port:
     description: Remote SSH port.
     default: 22
     required: true
-  ssh-user:
+  ssh_user:
     description: Remote user name.
     required: true
-  docker-compose-prefix:
+  docker_compose_prefix:
     description: Prefix for docker-compose containers.
     required: true
-  docker-compose-filename:
+  docker_compose_filename:
     description: Docker compose file to use
     default: docker-compose.yaml
 runs:
   using: docker
   image: Dockerfile
   env:
-    SSH_USER: ${{ inputs.ssh-user }}
-    SSH_HOST: ${{ inputs.ssh-host }}
-    SSH_PORT: ${{ inputs.ssh-port }}
-    SSH_PRIVATE_KEY: ${{ inputs.ssh-private-key }}
-    DOCKER_COMPOSE_FILENAME: ${{ inputs.docker-compose-filename }}
-    DOCKER_COMPOSE_PREFIX: ${{ inputs.docker-compose-prefix }}
+    SSH_USER: ${{ inputs.ssh_user }}
+    SSH_HOST: ${{ inputs.ssh_host }}
+    SSH_PORT: ${{ inputs.ssh_port }}
+    SSH_PRIVATE_KEY: ${{ inputs.ssh_private_key }}
+    DOCKER_COMPOSE_FILENAME: ${{ inputs.docker_compose_filename }}
+    DOCKER_COMPOSE_PREFIX: ${{ inputs.docker_compose_prefix }}
