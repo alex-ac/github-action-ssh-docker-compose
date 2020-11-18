@@ -14,7 +14,7 @@ cleanup() {
   log "Killing ssh agent."
   ssh-agent -k
 }
-trap exit cleanup
+trap cleanup EXIT
 
 ssh-add <(echo "$SSH_PRIVATE_KEY")
 
@@ -32,7 +32,7 @@ cleanup() {
 
 log "Creating workspace directory..."
 mkdir "$$HOME/workspace"
-trap exit cleanup
+trap cleanup EXIT
 
 log "Unpacking workspace..."
 tar -C "$$HOME/workspace" xjv
