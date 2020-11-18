@@ -23,7 +23,7 @@ eval `ssh-agent -s`
 ssh-add <(echo "$SSH_PRIVATE_KEY")
 
 remote_command=<< EOF
-set -e
+set -ex
 
 log() {
   echo ">> [remote]" \$@
