@@ -8,16 +8,6 @@ log() {
 log "Packing workspace into archive to transfer onto remote machine."
 tar cjvf /tmp/workspace.tar.bz2 --exclude .git .
 
-log "Launching ssh agent."
-eval `ssh-agent -s`
-cleanup() {
-  log "Killing ssh agent."
-  ssh-agent -k
-}
-trap cleanup EXIT
-
-ssh-add <(echo "$SSH_PRIVATE_KEY")
-
 remote_command=<< EOF
 set -e
 
@@ -45,6 +35,7 @@ docker-compose up -d
 EOF
 
 echo ">> [local] Connecting to remote host."
-ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
-  "$SSH_USER@$SSH_HOST:$SSH_PORT" \
+ssh -i <(echo "$SSH_PRIVATE_KEY") \
+  -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+  "$SSH_USER@$SSH_HOST" -p "$SSH_PORT" \
   "$remote_command"
