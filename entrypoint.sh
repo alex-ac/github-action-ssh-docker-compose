@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usb/bin/env bash
 set -e
 
 log() {
