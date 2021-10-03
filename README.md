@@ -19,6 +19,7 @@ unknown docker-images. It is entirely built from Dockerfile on top of
  * `docker_compose_prefix` - Project name passed to compose. Each docker
    container will have this prefix in name.
  * `docker_compose_file` - Path to the docker-compose file in the repository.
+ * `use_stack` - Use docker stack instead of docker-compose.
 
 # Usage example
 
@@ -93,3 +94,33 @@ jobs:
 ```
 
 8. You're all set!
+
+# Swarm & Stack
+
+In case you want to use some advanced features like secrets. You'll need to
+setup a docker swarm cluster and use docker stack command instead of the plain
+docker-compose. To do that just set `use_stack` input to `"true"`:
+
+```
+name: Deploy
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - actions/chockout@v2
+
+    - uses: alex-ac/github-action-ssh-docker-compose@master
+      name: Docker-Stack Remote Deployment
+      with:
+        ssh_host: example.com
+        ssh_private_key: ${{ secrets.EXAMPLE_COM_SSH_PRIVATE_KEY }}
+        ssh_user: ${{ secrets.EXAMPLE_COM_SSH_USER }}
+        docker_compose_prefix: example.com
+        use_stack: 'true'
+```
+
