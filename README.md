@@ -18,7 +18,7 @@ unknown docker-images. It is entirely built from Dockerfile on top of
  * `ssh_user` - Remote user which should have access to docker.
  * `docker_compose_prefix` - Project name passed to compose. Each docker
    container will have this prefix in name.
- * `docker_compose_file` - Path to the docker-compose file in the repository.
+ * `docker_compose_filename` - Path to the docker-compose file in the repository.
  * `use_stack` - Use docker stack instead of docker-compose.
 
 # Usage example
@@ -48,7 +48,7 @@ ssh example.com
 $ sudo mkdir /var/lib/docker-deploy/.ssh
 $ sudo chown docker-deploy:docker-deploy /var/lib/docker-deploy/.ssh
 $ sudo install -o docker-deploy -g docker-deploy -m 0600 deploy_key.pub /var/lib/docker-deploy/.ssh/authorized_keys
-$ sudo chmod 0500 /var/lib/deploy/.ssh
+$ sudo chmod 0500 /var/lib/docker-deploy/.ssh
 $ rm deploy_key.pub
 ```
 
