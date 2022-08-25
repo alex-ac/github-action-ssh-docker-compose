@@ -21,11 +21,11 @@ log "Launching ssh agent."
 eval `ssh-agent -s`
 
 remote_command=
-"set -e && log() { echo '>> [remote]' \$@ ; } && rm -rf \"\$HOME/workspace\"  && log 'Creating workspace directory...' && mkdir -p \"\$HOME/workspace\" && trap cleanup EXIT && log 'Unpacking workspace...' && tar -C \"\$HOME/workspace\" -xjv && log 'Launching docker-compose...' && cd \"\$HOME/workspace\" && docker-compose -f \"$DOCKER_COMPOSE_FILENAME\" -p \"$DOCKER_COMPOSE_PREFIX\" up -d --remove-orphans --build"
+"set -e; log() { echo '>> [remote]' \$@ ; }; rm -rf \"\$HOME/workspace\"  && log 'Creating workspace directory...' && mkdir -p \"\$HOME/workspace\" && trap cleanup EXIT && log 'Unpacking workspace...' && tar -C \"\$HOME/workspace\" -xjv && log 'Launching docker-compose...' && cd \"\$HOME/workspace\" && docker-compose -f \"$DOCKER_COMPOSE_FILENAME\" -p \"$DOCKER_COMPOSE_PREFIX\" up -d --remove-orphans --build"
 if $USE_DOCKER_STACK ; then
   remote_command="set -e ; log() { echo '>> [remote]' \$@ ; } ; cleanup() { log 'Removing workspace...'; rm -rf \"\$HOME/workspace\" ; } ; log 'Creating workspace directory...' ; mkdir -p \"\$HOME/workspace/$DOCKER_COMPOSE_PREFIX\" ; trap cleanup EXIT ; log 'Unpacking workspace...' ; tar -C \"\$HOME/workspace/$DOCKER_COMPOSE_PREFIX\" -xjv ; log 'Launching docker stack deploy...' ; cd \"\$HOME/workspace/$DOCKER_COMPOSE_PREFIX\" ; docker stack deploy -c \"$DOCKER_COMPOSE_FILENAME\" --prune \"$DOCKER_COMPOSE_PREFIX\""
 fi
-if $DOCKER_COMPOSshE_DOWN ; then
+if $DOCKER_COMPOSshE_DOWN ; thenhttps://github.com/
   remote_command="set -e ; log() { echo '>> [remote]' \$@ ; } ; cleanup() { log 'Removing workspace...'; rm -rf \"\$HOME/workspace\" ; } ; log 'Creating workspace directory...' ; mkdir -p \"\$HOME/workspace\" ; trap cleanup EXIT ; log 'Unpacking workspace...' ; tar -C \"\$HOME/workspace\" -xjv ; log 'Launching docker-compose...' ; cd \"\$HOME/workspace\" ; docker-compose -f \"$DOCKER_COMPOSE_FILENAME\" -p \"$DOCKER_COMPOSE_PREFIX\" down"
 fi
 
