@@ -3,7 +3,9 @@ Simple github action to run docker-compose on remote host.
 
 This action packs contents of the action workspace into archive.
 Logs into remote host via ssh. Unpacks the workspace there and runs
-`docker-compose up -d` command.
+`docker-compose up -d` command. 
+The connection is attempted to be kept alive using a `ServerAliveInterval`
+of 100 with SSH, which may help with long deploys.
 
 Comparing to other actions with similar behavior this one does not use any
 unknown docker-images. It is entirely built from Dockerfile on top of
@@ -20,6 +22,7 @@ unknown docker-images. It is entirely built from Dockerfile on top of
    container will have this prefix in name.
  * `docker_compose_filename` - Path to the docker-compose file in the repository.
  * `use_stack` - Use docker stack instead of docker-compose.
+ * `docker_compose_down` - Execute docker-compose-down.
 
 # Usage example
 
@@ -124,3 +127,28 @@ jobs:
         use_stack: 'true'
 ```
 
+# Down deploy (Docker-compose down)
+If you need to run a docker-compose down to do a clean rollback. Only one down of the
+services will be executed To do that just set `docker_compose_down` input to `"true"`:
+```
+name: Deploy
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - actions/chockout@v2
+
+    - uses: alex-ac/github-action-ssh-docker-compose@master
+      name: Docker-Stack Remote Deployment
+      with:
+        ssh_host: example.com
+        ssh_private_key: ${{ secrets.EXAMPLE_COM_SSH_PRIVATE_KEY }}
+        ssh_user: ${{ secrets.EXAMPLE_COM_SSH_USER }}
+        docker_compose_prefix: example.com
+        docker_compose_down: 'true'
+```
