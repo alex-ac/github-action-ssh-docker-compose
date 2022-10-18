@@ -3,7 +3,9 @@ Simple github action to run docker-compose on remote host.
 
 This action packs contents of the action workspace into archive.
 Logs into remote host via ssh. Unpacks the workspace there and runs
-`docker-compose up -d` command. Measures are taken to keep the connection alive.
+`docker-compose up -d` command. 
+The connection is attempted to be kept alive using a `ServerAliveInterval`
+of 100 with SSH, which may help with long deploys.
 
 Comparing to other actions with similar behavior this one does not use any
 unknown docker-images. It is entirely built from Dockerfile on top of
