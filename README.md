@@ -112,7 +112,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - actions/chockout@v2
+    - actions/checkout@v2
 
     - uses: alex-ac/github-action-ssh-docker-compose@master
       name: Docker-Stack Remote Deployment
