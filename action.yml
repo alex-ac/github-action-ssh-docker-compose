@@ -23,6 +23,9 @@ inputs:
   use_stack:
     description: Use docker stack instead of docker compose ("true" or "false").
     default: 'false'
+  tar_package_operation_modifiers:
+    description: Tar operation modifiers used while creating the package.
+    default: '--exclude .git --exclude .github --exclude .gitignore --exclude .gitmodules --exclude .vscode'
 runs:
   using: docker
   image: Dockerfile
@@ -34,3 +37,4 @@ runs:
     DOCKER_COMPOSE_FILENAME: ${{ inputs.docker_compose_filename }}
     DOCKER_COMPOSE_PREFIX: ${{ inputs.docker_compose_prefix }}
     USE_DOCKER_STACK: ${{ inputs.use_stack }}
+    TAR_PACKAGE_OPERATION_MODIFIERS: ${{ inputs.tar_package_operation_modifiers }}

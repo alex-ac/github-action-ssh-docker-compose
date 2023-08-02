@@ -20,6 +20,7 @@ unknown docker-images. It is entirely built from Dockerfile on top of
    container will have this prefix in name.
  * `docker_compose_filename` - Path to the docker-compose file in the repository.
  * `use_stack` - Use docker stack instead of docker-compose.
+ * `tar_package_operation_modifiers` - Modifiers for tar package operation. Default is '--exclude .git --exclude .github'
 
 # Usage example
 
@@ -112,7 +113,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - actions/chockout@v2
+    - actions/checkout@v2
 
     - uses: alex-ac/github-action-ssh-docker-compose@master
       name: Docker-Stack Remote Deployment
